@@ -59,7 +59,7 @@ public class SpringDataGeoRepositoryTests {
 				.pointC(toGeoString(point)).pointD(toGeoArray(point)).build();
 		// when
 		GeoEntity saved = repository.save(entity);
-		Optional<GeoEntity> result = repository.findOne(entity.getId());
+		Optional<GeoEntity> result = repository.findById(entity.getId());
 		// then
 
 		assertThat(result.isPresent(), is(true));

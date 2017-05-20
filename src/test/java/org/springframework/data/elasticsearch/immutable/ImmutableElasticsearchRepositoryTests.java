@@ -59,7 +59,7 @@ public class ImmutableElasticsearchRepositoryTests {
 		assertThat(entity.getId(), is(notNullValue()));
 
 		// then
-		Optional<ImmutableEntity> entityFromElasticSearch = repository.findOne(entity.getId());
+		Optional<ImmutableEntity> entityFromElasticSearch = repository.findById(entity.getId());
 
 		assertThat(entityFromElasticSearch.isPresent(), is(true));
 

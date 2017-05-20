@@ -17,7 +17,6 @@ package org.springframework.data.elasticsearch.repository.support;
 
 import static org.springframework.data.querydsl.QuerydslUtils.*;
 
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Optional;
 import java.util.UUID;
@@ -63,7 +62,7 @@ public class ElasticsearchRepositoryFactory extends RepositoryFactorySupport {
 	}
 
 	@Override
-	public <T, ID extends Serializable> ElasticsearchEntityInformation<T, ID> getEntityInformation(Class<T> domainClass) {
+	public <T, ID> ElasticsearchEntityInformation<T, ID> getEntityInformation(Class<T> domainClass) {
 		return entityInformationCreator.getEntityInformation(domainClass);
 	}
 

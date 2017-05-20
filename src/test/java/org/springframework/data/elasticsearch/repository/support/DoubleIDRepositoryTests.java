@@ -72,12 +72,12 @@ public class DoubleIDRepositoryTests {
 		sampleEntity2.setVersion(System.currentTimeMillis());
 
 		// when
-		repository.save(Arrays.asList(sampleEntity1, sampleEntity2));
+		repository.saveAll(Arrays.asList(sampleEntity1, sampleEntity2));
 		// then
-		Optional<DoubleIDEntity> entity1FromElasticSearch = repository.findOne(documentId1);
+		Optional<DoubleIDEntity> entity1FromElasticSearch = repository.findById(documentId1);
 		assertThat(entity1FromElasticSearch.isPresent(), is(true));
 
-		Optional<DoubleIDEntity> entity2FromElasticSearch = repository.findOne(documentId2);
+		Optional<DoubleIDEntity> entity2FromElasticSearch = repository.findById(documentId2);
 		assertThat(entity2FromElasticSearch.isPresent(), is(true));
 	}
 
@@ -92,7 +92,7 @@ public class DoubleIDRepositoryTests {
 		// when
 		repository.save(sampleEntity);
 		// then
-		Optional<DoubleIDEntity> entityFromElasticSearch = repository.findOne(documentId);
+		Optional<DoubleIDEntity> entityFromElasticSearch = repository.findById(documentId);
 		assertThat(entityFromElasticSearch.isPresent(), is(true));
 	}
 }

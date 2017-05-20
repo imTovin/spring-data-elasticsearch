@@ -82,12 +82,12 @@ public class UUIDElasticsearchRepositoryTests {
 		sampleEntityUUIDKeyed2.setVersion(System.currentTimeMillis());
 
 		// when
-		repository.save(Arrays.asList(sampleEntityUUIDKeyed1, sampleEntityUUIDKeyed2));
+		repository.saveAll(Arrays.asList(sampleEntityUUIDKeyed1, sampleEntityUUIDKeyed2));
 		// then
-		Optional<SampleEntityUUIDKeyed> entity1FromElasticSearch = repository.findOne(documentId1);
+		Optional<SampleEntityUUIDKeyed> entity1FromElasticSearch = repository.findById(documentId1);
 		assertThat(entity1FromElasticSearch.isPresent(), is(true));
 
-		Optional<SampleEntityUUIDKeyed> entity2FromElasticSearch = repository.findOne(documentId2);
+		Optional<SampleEntityUUIDKeyed> entity2FromElasticSearch = repository.findById(documentId2);
 		assertThat(entity2FromElasticSearch.isPresent(), is(true));
 	}
 
@@ -102,7 +102,7 @@ public class UUIDElasticsearchRepositoryTests {
 		// when
 		repository.save(sampleEntityUUIDKeyed);
 		// then
-		Optional<SampleEntityUUIDKeyed> entityFromElasticSearch = repository.findOne(documentId);
+		Optional<SampleEntityUUIDKeyed> entityFromElasticSearch = repository.findById(documentId);
 		assertThat(entityFromElasticSearch.isPresent(), is(true));
 	}
 
@@ -116,7 +116,7 @@ public class UUIDElasticsearchRepositoryTests {
 		sampleEntityUUIDKeyed.setVersion(System.currentTimeMillis());
 		repository.save(sampleEntityUUIDKeyed);
 		// when
-		Optional<SampleEntityUUIDKeyed> entityFromElasticSearch = repository.findOne(documentId);
+		Optional<SampleEntityUUIDKeyed> entityFromElasticSearch = repository.findById(documentId);
 		// then
 		assertThat(entityFromElasticSearch.isPresent(), is(true));
 		assertThat(sampleEntityUUIDKeyed, is((equalTo(sampleEntityUUIDKeyed))));
@@ -155,9 +155,9 @@ public class UUIDElasticsearchRepositoryTests {
 		sampleEntityUUIDKeyed.setVersion(System.currentTimeMillis());
 		repository.save(sampleEntityUUIDKeyed);
 		// when
-		repository.delete(documentId);
+		repository.deleteById(documentId);
 		// then
-		Optional<SampleEntityUUIDKeyed> entityFromElasticSearch = repository.findOne(documentId);
+		Optional<SampleEntityUUIDKeyed> entityFromElasticSearch = repository.findById(documentId);
 		assertThat(entityFromElasticSearch.isPresent(), is(false));
 	}
 
@@ -216,7 +216,7 @@ public class UUIDElasticsearchRepositoryTests {
 		repository.save(sampleEntityUUIDKeyed2);
 
 		// when
-		LinkedList<SampleEntityUUIDKeyed> sampleEntities = (LinkedList<SampleEntityUUIDKeyed>) repository.findAll(Arrays.asList(documentId, documentId2));
+		LinkedList<SampleEntityUUIDKeyed> sampleEntities = (LinkedList<SampleEntityUUIDKeyed>) repository.findAllById(Arrays.asList(documentId, documentId2));
 
 		// then
 		assertNotNull("sample entities cant be null..", sampleEntities);
@@ -242,7 +242,7 @@ public class UUIDElasticsearchRepositoryTests {
 
 		Iterable<SampleEntityUUIDKeyed> sampleEntities = Arrays.asList(sampleEntityUUIDKeyed1, sampleEntityUUIDKeyed2);
 		// when
-		repository.save(sampleEntities);
+		repository.saveAll(sampleEntities);
 		// then
 		Page<SampleEntityUUIDKeyed> entities = repository.search(termQuery("id", documentId.toString()), new PageRequest(0, 50));
 		assertNotNull(entities);
@@ -259,7 +259,7 @@ public class UUIDElasticsearchRepositoryTests {
 		repository.save(sampleEntityUUIDKeyed);
 
 		// when
-		boolean exist = repository.exists(documentId);
+		boolean exist = repository.existsById(documentId);
 
 		// then
 		assertEquals(exist, true);
@@ -285,12 +285,11 @@ public class UUIDElasticsearchRepositoryTests {
 		sampleEntityUUIDKeyed.setVersion(System.currentTimeMillis());
 		repository.save(sampleEntityUUIDKeyed);
 		// when
-		long result = repository.deleteById(documentId);
+		repository.deleteById(documentId);
 		// then
 		SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(termQuery("id", documentId.toString())).build();
 		Page<SampleEntityUUIDKeyed> sampleEntities = repository.search(searchQuery);
 		assertThat(sampleEntities.getTotalElements(), equalTo(0L));
-		assertThat(result, equalTo(1L));
 	}
 
 	@Test
@@ -316,7 +315,7 @@ public class UUIDElasticsearchRepositoryTests {
 		sampleEntityUUIDKeyed3.setMessage("hello world 3");
 		sampleEntityUUIDKeyed3.setAvailable(false);
 		sampleEntityUUIDKeyed3.setVersion(System.currentTimeMillis());
-		repository.save(Arrays.asList(sampleEntityUUIDKeyed1, sampleEntityUUIDKeyed2, sampleEntityUUIDKeyed3));
+		repository.saveAll(Arrays.asList(sampleEntityUUIDKeyed1, sampleEntityUUIDKeyed2, sampleEntityUUIDKeyed3));
 		// when
 		List<SampleEntityUUIDKeyed> result = repository.deleteByAvailable(true);
 		repository.refresh();
@@ -347,7 +346,7 @@ public class UUIDElasticsearchRepositoryTests {
 		sampleEntityUUIDKeyed3.setId(documentId);
 		sampleEntityUUIDKeyed3.setMessage("hello world 3");
 		sampleEntityUUIDKeyed3.setVersion(System.currentTimeMillis());
-		repository.save(Arrays.asList(sampleEntityUUIDKeyed1, sampleEntityUUIDKeyed2, sampleEntityUUIDKeyed3));
+		repository.saveAll(Arrays.asList(sampleEntityUUIDKeyed1, sampleEntityUUIDKeyed2, sampleEntityUUIDKeyed3));
 		// when
 		List<SampleEntityUUIDKeyed> result = repository.deleteByMessage("hello world 3");
 		repository.refresh();
@@ -378,7 +377,7 @@ public class UUIDElasticsearchRepositoryTests {
 		sampleEntityUUIDKeyed3.setId(documentId);
 		sampleEntityUUIDKeyed3.setType("image");
 		sampleEntityUUIDKeyed3.setVersion(System.currentTimeMillis());
-		repository.save(Arrays.asList(sampleEntityUUIDKeyed1, sampleEntityUUIDKeyed2, sampleEntityUUIDKeyed3));
+		repository.saveAll(Arrays.asList(sampleEntityUUIDKeyed1, sampleEntityUUIDKeyed2, sampleEntityUUIDKeyed3));
 		// when
 		repository.deleteByType("article");
 		repository.refresh();
@@ -448,10 +447,10 @@ public class UUIDElasticsearchRepositoryTests {
 
 		Iterable<SampleEntityUUIDKeyed> sampleEntities = Arrays.asList(sampleEntityUUIDKeyed2, sampleEntityUUIDKeyed2);
 		// when
-		repository.delete(sampleEntities);
+		repository.deleteAll(sampleEntities);
 		// then
-		assertThat(repository.findOne(documentId1).isPresent(), is(false));
-		assertThat(repository.findOne(documentId2).isPresent(), is(false));
+		assertThat(repository.findById(documentId1).isPresent(), is(false));
+		assertThat(repository.findById(documentId2).isPresent(), is(false));
 	}
 
 	@Test
@@ -485,7 +484,7 @@ public class UUIDElasticsearchRepositoryTests {
 				+ "we want real-time search, we want simple multi-tenancy, and we want a solution that is built for the cloud.";
 
 		List<SampleEntityUUIDKeyed> sampleEntities = createSampleEntitiesWithMessage(sampleMessage, 30);
-		repository.save(sampleEntities);
+		repository.saveAll(sampleEntities);
 
 		// when
 		Page<SampleEntityUUIDKeyed> results = repository.searchSimilar(sampleEntities.get(0), new String[]{"message"}, new PageRequest(0, 5));

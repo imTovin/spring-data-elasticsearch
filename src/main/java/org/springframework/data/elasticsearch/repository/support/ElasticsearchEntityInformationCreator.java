@@ -15,8 +15,6 @@
  */
 package org.springframework.data.elasticsearch.repository.support;
 
-import java.io.Serializable;
-
 /**
  * ElasticsearchEntityInformationCreator
  *
@@ -25,5 +23,5 @@ import java.io.Serializable;
  */
 public interface ElasticsearchEntityInformationCreator {
 
-	<T, ID extends Serializable> ElasticsearchEntityInformation<T, ID> getEntityInformation(Class<T> domainClass);
+	<T, ID> ElasticsearchEntityInformation<T, ID> getEntityInformation(Class<T> domainClass);
 }

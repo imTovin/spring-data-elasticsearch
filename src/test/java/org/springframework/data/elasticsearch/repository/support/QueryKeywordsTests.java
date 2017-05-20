@@ -50,7 +50,7 @@ public class QueryKeywordsTests {
 		elasticsearchTemplate.putMapping(Product.class);
 		elasticsearchTemplate.refresh(Product.class);
 
-		repository.save(Arrays.asList(
+		repository.saveAll(Arrays.asList(
 				Product.builder().id("1").name("Sugar").text("Cane sugar").price(1.0f).available(false).build()
 				, Product.builder().id("2").name("Sugar").text("Cane sugar").price(1.2f).available(true).build()
 				, Product.builder().id("3").name("Sugar").text("Beet sugar").price(1.1f).available(true).build()

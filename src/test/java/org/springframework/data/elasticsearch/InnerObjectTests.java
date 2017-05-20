@@ -69,6 +69,6 @@ public class InnerObjectTests {
 		// when
 		bookRepository.save(book);
 		// then
-		assertThat(bookRepository.findOne(id), is(notNullValue()));
+		assertThat(bookRepository.findById(id), is(notNullValue()));
 	}
 }

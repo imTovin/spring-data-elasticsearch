@@ -26,7 +26,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  */
 public interface SampleUUIDKeyedElasticsearchRepository extends ElasticsearchRepository<SampleEntityUUIDKeyed, UUID> {
 
-	long deleteById(UUID id);
 	List<SampleEntityUUIDKeyed> deleteByAvailable(boolean available);
 	List<SampleEntityUUIDKeyed> deleteByMessage(String message);
 	void deleteByType(String type);

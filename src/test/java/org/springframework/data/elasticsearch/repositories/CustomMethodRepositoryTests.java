@@ -650,7 +650,7 @@ public class CustomMethodRepositoryTests {
 	public void shouldAllowReturningJava8StreamInCustomQuery() {
 		// given
 		List<SampleEntity> entities = createSampleEntities("abc", 30);
-		repository.save(entities);
+		repository.saveAll(entities);
 
 		// when
 		Stream<SampleEntity> stream = repository.findByType("abc");

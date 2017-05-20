@@ -44,7 +44,7 @@ public class ElasticsearchEntityInformationCreatorImpl implements ElasticsearchE
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T, ID extends Serializable> ElasticsearchEntityInformation<T, ID> getEntityInformation(Class<T> domainClass) {
+	public <T, ID> ElasticsearchEntityInformation<T, ID> getEntityInformation(Class<T> domainClass) {
 
 		ElasticsearchPersistentEntity<T> persistentEntity = (ElasticsearchPersistentEntity<T>) mappingContext
 				.getRequiredPersistentEntity(domainClass);
@@ -52,6 +52,6 @@ public class ElasticsearchEntityInformationCreatorImpl implements ElasticsearchE
 		Assert.notNull(persistentEntity, String.format("Unable to obtain mapping metadata for %s!", domainClass));
 		Assert.notNull(persistentEntity.getIdProperty(), String.format("No id property found for %s!", domainClass));
 
-		return new MappingElasticsearchEntityInformation<>(persistentEntity);
+		return new MappingElasticsearchEntityInformation(persistentEntity);
 	}
 }

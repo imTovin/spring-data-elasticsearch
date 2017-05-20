@@ -26,7 +26,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  */
 public interface SampleElasticsearchRepository extends ElasticsearchRepository<SampleEntity, String> {
 
-	long deleteById(String id);
 	List<SampleEntity> deleteByAvailable(boolean available);
 	List<SampleEntity> deleteByMessage(String message);
 	void deleteByType(String type);

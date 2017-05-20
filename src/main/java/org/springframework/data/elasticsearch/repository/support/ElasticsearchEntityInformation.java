@@ -25,7 +25,7 @@ import org.springframework.data.repository.core.EntityInformation;
  * @author Rizwan Idrees
  * @author Mohsin Husen
  */
-public interface ElasticsearchEntityInformation<T, ID extends Serializable> extends EntityInformation<T, ID> {
+public interface ElasticsearchEntityInformation<T, ID> extends EntityInformation<T, ID> {
 
 	String getIdAttribute();
 
